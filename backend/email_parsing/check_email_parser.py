@@ -26,6 +26,7 @@ def check_email_parser() -> None:
 
     print("\nTo:", parsed_email.to)
     print("Cc:", parsed_email.cc)
+    print("Bcc:", parsed_email.bcc)
 
     print("\nSubject:", parsed_email.subject)
 
@@ -46,3 +47,5 @@ def check_email_parser() -> None:
 
 if __name__ == "__main__":
     check_email_parser()
+
+
