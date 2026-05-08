@@ -17,3 +17,6 @@ Thumbs.db
 
 # Sample emails
 samples/*.eml
+
+# CSV files
+exploratory_data_analysis/suspicious_words/*
