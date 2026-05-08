@@ -68,3 +68,28 @@ def load_email_message(file_path: str) -> EmailMessage:
 
     with open(file_path, "rb") as email_file:
         return BytesParser(policy=policy.default).parse(email_file)
+
+
+def parse_email_bytes(email_bytes: bytes) -> ParsedEmail:
+    """
+    Parses raw MIME email bytes into a normalized ParsedEmail object.
+    """
+
+    message = BytesParser(
+        policy=policy.default
+    ).parsebytes(email_bytes)
+
+    return parse_email_message(message)
+
+
+def parse_email_string(raw_email: str) -> ParsedEmail:
+    """
+    Parses a raw MIME email string into a normalized ParsedEmail object.
+    """
+
+    email_bytes = raw_email.encode(
+        "utf-8",
+        errors="ignore"
+    )
+
+    return parse_email_bytes(email_bytes)
