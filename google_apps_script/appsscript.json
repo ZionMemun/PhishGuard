@@ -1,0 +1,22 @@
+{
+  "timeZone": "Asia/Jerusalem",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/gmail.addons.execute",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/script.external_request",
+    "https://www.googleapis.com/auth/gmail.modify"
+  ],
+  "gmail": {
+    "name": "Malicious Mail Analyzer",
+    "logoUrl": "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico",
+    "contextualTriggers": [
+      {
+        "unconditional": {},
+        "onTriggerFunction": "onGmailMessageOpen"
+      }
+    ],
+    "primaryColor": "#0B57D0"
+  }
+}
