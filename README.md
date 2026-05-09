@@ -182,9 +182,10 @@ MaliciousMailAnalyzer/
 │   │   ├── schemas.py
 │   │   └── email_scorer.py
 │   │
+│   └── requirements.txt
 │
 ├── google_apps_script/
-│   ├── gmail.addon.gs
+│   ├── gmail_addon.gs
 │   └── appsscript.json
 │
 ├── exploratory_data_analysis/
@@ -196,9 +197,7 @@ MaliciousMailAnalyzer/
 │   ├── reply_to_mismatch_example_email.eml
 │   ├── url_example_email.eml
 │   ├── attachment_example_email.eml
-│   └── dear_friend_example_email.eml
-│
-├── samples/
+│   ├── dear_friend_example_email.eml
 │   ├── attachment_example.png
 │   ├── hard_signal_example.png
 │   └── user_context.png
@@ -217,7 +216,7 @@ MaliciousMailAnalyzer/
 Location:
 
 ```text
-gmail_addon/
+google_apps_script/
 ```
 
 The Gmail Add-on is the user-facing product.
@@ -438,8 +437,8 @@ It allows related domains and addresses to avoid false positives.
 Example considered related:
 
 ```text
-From: NVIDIA HR <nvidia@myworkday.com>
-Reply-To: donotreply@nvidia.com
+From: Careers Team <jobs@green-tech-platform.com>
+Reply-To: noreply@green-tech-platform.com
 ```
 
 If the sender and Reply-To appear unrelated, the feature returns:
@@ -637,27 +636,143 @@ Final verdict: High Risk
 
 ---
 
-# Running The Backend Locally
+# Local Testing Utilities
 
-Navigate to the backend directory:
+The project includes multiple standalone testing scripts for validating different parts of the system independently.
+
+These utilities make development and debugging significantly easier.
+
+---
+
+## Email Parser Testing
+
+Location:
+
+```text
+backend/email_parsing/check_email_parser.py
+```
+
+Purpose:
+
+- Parse raw `.eml` files
+- Validate MIME parsing
+- Inspect extracted headers
+- Inspect extracted URLs
+- Inspect extracted attachments
+
+Run:
+
+```powershell
+python backend/email_parsing/check_email_parser.py
+```
+
+---
+
+## Feature Extraction Testing
+
+Location:
+
+```text
+backend/features/check_features.py
+```
+
+Purpose:
+
+- Run all security features on sample emails
+- Inspect feature scores
+- Inspect hard signals
+- Inspect evidence and explanations
+- Validate final verdict logic
+
+Run:
+
+```powershell
+python backend/features/check_features.py
+```
+
+---
+
+## API Testing
+
+Location:
+
+```text
+backend/api/check_api.py
+```
+
+Purpose:
+
+- Send sample emails to the FastAPI backend
+- Validate end-to-end API behavior
+- Validate request / response flow
+
+Run:
+
+```powershell
+python backend/api/check_api.py
+```
+
+---
+
+# Full Local Setup
+
+## 1. Clone the repository
+
+```powershell
+git clone <repository-url>
+```
+
+---
+
+## 2. Create a virtual environment
+
+```powershell
+python -m venv .venv
+```
+
+---
+
+## 3. Activate the environment
+
+Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+---
+
+## 4. Install dependencies
+
+```powershell
+pip install -r requirements.txt
+```
+
+---
+
+## 5. Navigate to backend
 
 ```powershell
 cd backend
 ```
 
-Set `PYTHONPATH`:
+---
+
+## 6. Set PYTHONPATH
 
 ```powershell
 $env:PYTHONPATH="."
 ```
 
-Run the FastAPI server:
+---
+
+## 7. Run the FastAPI backend
 
 ```powershell
 uvicorn api.main:app --reload
 ```
 
-The backend should be available at:
+Backend URL:
 
 ```text
 http://127.0.0.1:8000
@@ -665,26 +780,41 @@ http://127.0.0.1:8000
 
 ---
 
-# Exposing Backend To Gmail Add-on
-
-During local development, the backend is exposed using ngrok:
+## 8. Expose backend using ngrok
 
 ```powershell
 ngrok http 8000
 ```
 
-This creates a public HTTPS URL:
+---
+
+## 9. Update the Apps Script backend URL
+
+Inside:
 
 ```text
-https://example.ngrok-free.dev
+google_apps_script/gmail_addon.gs
 ```
 
-The Gmail Add-on uses:
+Replace:
 
 ```javascript
-const BACKEND_URL =
-  "https://example.ngrok-free.dev/analyze-email";
+const BACKEND_URL = "...";
 ```
+
+with the generated ngrok URL.
+
+---
+
+## 10. Deploy the Gmail Add-on
+
+Using Google Apps Script:
+
+- Open the Apps Script project
+- Deploy the Gmail Add-on
+- Install it on a Gmail account
+- Open an email inside Gmail
+- Run the analyzer
 
 ---
 
