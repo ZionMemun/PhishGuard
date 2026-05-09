@@ -59,7 +59,7 @@ def analyze_reply_to_mismatch(parsed_email: ParsedEmail) -> FeatureResult:
             "reply_to": reply_to_email,
             "reply_to_domain": reply_to_domain,
         },
-        minimum_verdict="suspicious"
+        minimum_verdict="high_risk"
     )
 
 
