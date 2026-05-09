@@ -25,7 +25,7 @@ Detected signals include:
 
 Example result:
 
-![Risky Attachment Example](samples/attachment_example.png)
+![Risky Attachment Example](images/attachment_example.png)
 
 ---
 
@@ -46,7 +46,7 @@ Detected signals include:
 
 Example result:
 
-![Suspicious URL Example](samples/hard_signal_example.png)
+![Suspicious URL Example](images/hard_signal_example.png)
 
 ---
 
@@ -61,7 +61,7 @@ The user name and email are used only for:
 
 Example:
 
-![User Context Example](samples/user_context.png)
+![User Context Example](images/user_context.png)
 
 ---
 
