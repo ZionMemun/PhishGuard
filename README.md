@@ -445,7 +445,7 @@ Reply-To: donotreply@nvidia.com
 If the sender and Reply-To appear unrelated, the feature returns:
 
 ```text
-minimum_verdict = suspicious
+minimum_verdict = high_risk
 score = 0
 ```
 
@@ -703,24 +703,6 @@ Design choices include:
 - Handling attachments by metadata rather than executing or opening them
 
 The system does not execute attachments, follow links, or trust email content.
-
----
-
-# Future Improvements
-
-With more time, I would add:
-
-- Cloud deployment for the backend
-- URL reputation service integration
-- Attachment hash scanning
-- ML-based text classifier
-- Domain age / WHOIS signals
-- Better brand impersonation detection
-- Organization allowlist
-- User feedback loop
-- Admin dashboard
-- Better multilingual support
-- More advanced Gmail Add-on UX
 
 ---
 
