@@ -380,6 +380,23 @@ These features contribute to the regular maliciousness score.
 
 # Implemented Features
 
+---
+
+# Suspicious Words Feature Analysis
+
+To improve the suspicious words feature, exploratory data analysis was performed on a dataset containing both malicious and legitimate emails.
+
+The analysis extracted the top 200 words that appeared significantly more often in malicious emails compared to normal emails.
+
+The words were then grouped into 5 threat categories, and additional semantically similar words were manually added to improve detection coverage.
+
+Implementation notebook:
+
+```text
+exploratory_data_analysis/malicious_email_eda.ipynb
+```
+
+---
 ## Suspicious Words Feature
 
 This feature checks the email subject and body for suspicious words.
@@ -406,7 +423,7 @@ The user can provide multiple names, separated by commas.
 Example:
 
 ```text
-Zion, Zion Memun, ZionMemun, ציון
+Zion, Zion Memun, ZionMemun, Nathan
 ```
 
 The feature checks:
