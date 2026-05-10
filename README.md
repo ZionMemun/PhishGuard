@@ -73,7 +73,7 @@ These examples help demonstrate the difference between:
 For example:
 
 - Generic greetings increase the numeric maliciousness score.
-- Dangerous URLs or risky attachments can force stronger verdict escalation.
+- Dangerous URLs can force stronger verdict escalation.
 
 ---
 
@@ -636,11 +636,15 @@ Final verdict: High Risk
 
 ---
 
-# Local Testing Utilities
+# Running Local Testing Utilities
 
-The project includes multiple standalone testing scripts for validating different parts of the system independently.
+Before running the standalone testing scripts, the backend directory must be added to `PYTHONPATH`.
 
-These utilities make development and debugging significantly easier.
+Run:
+
+```powershell
+$env:PYTHONPATH="backend"
+```
 
 ---
 
@@ -651,14 +655,6 @@ Location:
 ```text
 backend/email_parsing/check_email_parser.py
 ```
-
-Purpose:
-
-- Parse raw `.eml` files
-- Validate MIME parsing
-- Inspect extracted headers
-- Inspect extracted URLs
-- Inspect extracted attachments
 
 Run:
 
@@ -676,14 +672,6 @@ Location:
 backend/features/check_features.py
 ```
 
-Purpose:
-
-- Run all security features on sample emails
-- Inspect feature scores
-- Inspect hard signals
-- Inspect evidence and explanations
-- Validate final verdict logic
-
 Run:
 
 ```powershell
@@ -700,17 +688,47 @@ Location:
 backend/api/check_api.py
 ```
 
-Purpose:
-
-- Send sample emails to the FastAPI backend
-- Validate end-to-end API behavior
-- Validate request / response flow
-
 Run:
 
 ```powershell
 python backend/api/check_api.py
 ```
+
+---
+
+# Running Custom EML Files
+
+The project supports analyzing any custom `.eml` file.
+
+To test a new email:
+
+1. Place the `.eml` file inside:
+
+```text
+samples/
+```
+
+2. Update the file name inside one of the testing scripts.
+
+Example:
+
+```python
+sample_email_files = [
+    "my_custom_email.eml"
+]
+```
+
+3. Run the desired testing utility.
+
+This makes it easy to test:
+
+- Real malicious emails
+- Custom malicious simulations
+- Safe emails
+- Edge cases
+- MIME parsing behavior
+- Attachment handling
+- Hidden HTML URLs
 
 ---
 
@@ -827,7 +845,6 @@ Design choices include:
 - Parsing raw MIME instead of rendered text
 - Treating emails as untrusted input
 - Keeping feature logic in the backend rather than the Add-on
-- Avoiding secrets in the repository
 - Using explainable deterministic features
 - Separating hard signals from weighted signals
 - Handling attachments by metadata rather than executing or opening them
